@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "daniel",
+      "password": "fdsa",
+      "roles": ["user", "moderator", "admin"]
+    },
+    {
+      "id": 2,
+      "username": "jackie",
+      "password": "asdf",
+      "roles": ["user", "moderator"]
+    }
+  ]
+}
