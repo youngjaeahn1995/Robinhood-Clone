@@ -1,15 +1,18 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
-import { login } from "../services/user";
+import { AppDispatch } from "../app/store";
+import { login } from "../features/user/userSlice";
 
-interface LoginValues {
+export interface LoginValues {
     username: string;
     password: string;
 }
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
 
     const initialValues: LoginValues = {
         username: "",
@@ -22,7 +25,7 @@ const Login = () => {
     })
 
     const onSubmit = async (formValues: LoginValues) => {
-        await login(formValues.username, formValues.password);
+        await dispatch(login({username: formValues.username, password: formValues.password}));
         navigate("/home");
     }
 

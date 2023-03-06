@@ -4,13 +4,19 @@
       "id": 1,
       "username": "daniel",
       "password": "fdsa",
-      "roles": ["user", "moderator", "admin"]
+      "email": "daniel@yahoo.com"
     },
     {
       "id": 2,
       "username": "jackie",
       "password": "asdf",
-      "roles": ["user", "moderator"]
+      "email": "jackie@yahoo.com"
+    },
+    {
+      "username": "bravo",
+      "email": "bravo@yahoo.com",
+      "password": "delta",
+      "id": 3
     }
   ]
 }

@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
-import { login } from "../services/user";
+import { login, register } from "../services/auth";
 
 interface RegisterValues {
     username: string;
@@ -56,7 +56,7 @@ const Register = () => {
                         </div>
                         <div>
                             <label htmlFor="password">Password</label>
-                            <Field type="text" name="password" />
+                            <Field type="password" name="password" />
                             <ErrorMessage name="password" className="text-red-600" component="div" />
                         </div>
                         <button type="submit">Sign Up</button>
