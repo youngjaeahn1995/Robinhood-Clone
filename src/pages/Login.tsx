@@ -1,8 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { object, string } from "yup";
-import { AppDispatch } from "../app/store";
+import { AppDispatch, State } from "../app/store";
 import { login } from "../features/user/userSlice";
 
 export interface LoginValues {
@@ -13,6 +13,7 @@ export interface LoginValues {
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
+    const user = useSelector((state: State) => state.user);
 
     const initialValues: LoginValues = {
         username: "",
@@ -25,8 +26,9 @@ const Login = () => {
     })
 
     const onSubmit = async (formValues: LoginValues) => {
-        await dispatch(login({username: formValues.username, password: formValues.password}));
-        navigate("/home");
+        dispatch(login({username: formValues.username, password: formValues.password}))
+        .unwrap() // createAsyncThunk method
+        .then(() => navigate("/account"));
     }
 
     return (
@@ -54,6 +56,9 @@ const Login = () => {
                             <Field type="password" name="password" />
                             <ErrorMessage name="password" className="text-red-600" component="div" />
                         </div>
+                        {user.loading === "failed" && <div className="text-red-800">
+                            Invalid username or password
+                        </div>}
                         <button type="submit">Sign In</button>
                     </Form>
                 </Formik>

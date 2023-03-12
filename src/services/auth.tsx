@@ -1,18 +1,15 @@
 import axios from "axios";
 
-export const login = async (username: string, password: string) => await axios.get(`${import.meta.env.VITE_API_URL}/users`, {
-    params: {
-        username,
-        password
-    }
+export const loginAPI = async (username: string, password: string) => await axios.post(`${import.meta.env.VITE_API_URL}/users/signin`, {
+    username,
+    password
 }).then(response => {
-    localStorage.setItem("user", JSON.stringify(response.data[0]));
-    return response.data[0];
-}).catch(error => {
-    console.log(error);
-})
+    console.log("response from spring: ", response);
+    localStorage.setItem("user", JSON.stringify(response.data));
+    return response.data;
+});
 
-export const register = async (username: string, email: string, password: string) => await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+export const registerAPI = async (username: string, email: string, password: string) => await axios.post(`${import.meta.env.VITE_API_URL}/users/register`, {
     username,
     email,
     password
@@ -23,8 +20,8 @@ export const register = async (username: string, email: string, password: string
 })
 
 const AuthService = {
-    login,
-    register
+    loginAPI,
+    registerAPI
 };
 
 export default AuthService;
